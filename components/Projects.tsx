@@ -8,7 +8,7 @@ function Projects({}: Props) {
   return (
     <div className="h-screen relative flex overflow-hidden flex-col text-left md:flex-row max-w-full justify-evenly mx-auto items-center z-0">
       <h3 className=" top-16 md:top-6 absolute uppercase tracking-[20px] text-gray-500 text-2xl">Projects</h3>
-      <div className="w-full relative flex overflow-x-scroll overflow-y-hidden snap-x snap-mandatory z-20">
+      <div className="w-full scrollbar scrollbar-track-gray-400/20 scrollbar-thumb-[#F7AB0A]/80 scrollbar-thin relative flex overflow-x-scroll overflow-y-hidden snap-x snap-mandatory z-20">
         {projects.map((project,i) => (
           <div key={5} className="w-screen flex-shrink-0 snap-center flex flex-col space-y-5 items-center justify-center p-20">
             <motion.img
