@@ -28,7 +28,7 @@ function About({}: Props) {
       <div className="space-y-5 px-0 md:px-10">
       <div className=" h-5 t-10"></div>
         <h4 className="text-4xl font-semibold -mb-4">
-          Hakkımda <span className="underline decoration-[#f7ab0a]/50">küçük</span> bir özet
+          Here is a <span className="underline decoration-[#f7ab0a]/50">little</span> background
         </h4>
         <p className="text-base">
           Ben Furkan, 1999 yılında İstanbul'da doğdum. 2021 yılında Marmara Üniversitesi Bilgisayar Programlama bölümünden mezun oldum.
