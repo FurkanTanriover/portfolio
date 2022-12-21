@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
+import { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import About from "../components/About";
 import ContactMe from "../components/ContactMe";
@@ -7,8 +8,23 @@ import Hero from "../components/Hero";
 import Projects from "../components/Projects";
 import Skills from "../components/Skills";
 import WorkExperience from "../components/WorkExperience";
+import { Experience, PageInfo, Project, Skill, Social } from "../typings";
+import { fetchExperience } from "../utils/fetchExperiences";
+import { fetchPageInfo } from "../utils/fetchPageInfo";
+import { fetchProject } from "../utils/fetchProjects";
+import { fetchSkills } from "../utils/fetchSkills";
+import { fetchSocial } from "../utils/fetchSocials";
 
-export default function Home() {
+type Props = {
+  pageInfo: PageInfo;
+  experiences: Experience[];
+  skills: Skill[];
+  projects: Project[];
+  socials: Social[];
+};
+
+const Home=({pageInfo, experiences, projects, skills, socials}: Props) => {
+
   return (
     <div
       className={
@@ -21,26 +37,26 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* Header */}
-      <Header />
+      <Header socials={socials} />
       {/* Hero */}
       <section id="hero" className="snap-start pt-20">
-        <Hero />
+        <Hero pageInfo={pageInfo} />
       </section>
       {/* About */}
       <section id="about" className="snap-center">
-        <About />
+        <About pageInfo={pageInfo}/>
       </section>
       {/* Experience */}
       <section id="experience" className="snap-center">
-        <WorkExperience />
+        <WorkExperience experiences={experiences} />
       </section>
       {/* Skills */}
       <section id="skills" className="snap-start">
-        <Skills />
+        <Skills skills={skills} />
       </section>
       {/* Projects */}
       <section id="projects" className="snap-start">
-        <Projects />
+        <Projects projects={projects} />
       </section>
       {/* Contact Me*/}
       <section id="contact" className="snap-start">
@@ -49,10 +65,32 @@ export default function Home() {
       <footer className="sticky bottom-5 w-full cursor-pointer">
         <div className=" flex justify-center">
           <img
-          className="rounded-full h-10 w-10 filter grayscale hover:grayscale-0"
-           src="https://media-exp1.licdn.com/dms/image/C5603AQEKqLYh8XhVMg/profile-displayphoto-shrink_800_800/0/1623004462527?e=1675296000&v=beta&t=Pu_zmE7DqzclJoaoD1xzs0sXlAIwWz8lN_gpL2EBbVQ" />
+            className="rounded-full h-10 w-10 filter grayscale hover:grayscale-0"
+            src="https://media-exp1.licdn.com/dms/image/C5603AQEKqLYh8XhVMg/profile-displayphoto-shrink_800_800/0/1623004462527?e=1675296000&v=beta&t=Pu_zmE7DqzclJoaoD1xzs0sXlAIwWz8lN_gpL2EBbVQ"
+          />
         </div>
       </footer>
     </div>
   );
+}
+
+export default Home;
+
+export async function getStaticProps() {
+  const pageInfo: PageInfo[] = await fetchPageInfo();
+  const experiences: Experience[] = await fetchExperience();
+  const skills: Skill[] = await fetchSkills();
+  const projects: Project[] = await fetchProject();
+  const socials: Social[] = await fetchSocial();
+
+  return {
+    props: {
+      pageInfo,
+      experiences,
+      skills,
+      projects,
+      socials,
+    },
+    revalidate: 10,
+  };
 }

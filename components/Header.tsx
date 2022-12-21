@@ -1,10 +1,14 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { SocialIcon } from "react-social-icons";
+import { Social } from "../typings";
 
-type Props = {};
+type Props = {
+  socials: Social[];
+};
 
-function Header({}: Props) {
+function Header({ socials }: Props) {
+  console.log(socials);
   return (
     <header className="sticky top-0 p-5 flex items-center justify-between max-w-7xl mx-auto z-20 xl:items-center ">
       <motion.div
@@ -14,9 +18,9 @@ function Header({}: Props) {
         transition={{ duration: 1.5 }}
       >
         {/* social ıcons */}
-        <SocialIcon url="https://youtube.com/jaketrent" fgColor="grey" bgColor="transparent" />
-        <SocialIcon url="https://youtube.com/jaketrent" fgColor="grey" bgColor="transparent" />
-        <SocialIcon url="https://youtube.com/jaketrent" fgColor="grey" bgColor="transparent" />
+        {socials.map((social) => (
+          <SocialIcon key={social._id} className="cursor-pointer" url={social.url} fgColor="gray" bgColor="transparent" />
+        ))}
       </motion.div>
       <Link href={"#contact"}>
         <motion.div

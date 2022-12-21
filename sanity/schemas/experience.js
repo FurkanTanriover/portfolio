@@ -19,7 +19,7 @@ export default defineType({
     defineField({
       name: 'company',
       title: 'Company',
-      type: 'image',
+      type: 'string',
     }),
     defineField({
       name: 'dateStarted',

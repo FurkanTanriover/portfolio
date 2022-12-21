@@ -1,13 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { Cursor, useTypewriter } from "react-simple-typewriter";
+import { urlFor } from "../sanity";
+import { PageInfo } from "../typings";
 import BackgroundCircles from "./BackgroundCircles";
 
-type Props = {};
+type Props = {
+  pageInfo: PageInfo;
+};
 
-function Hero({}: Props) {
+function Hero({pageInfo}: Props) {
   const [text, count] = useTypewriter({
-    words: ["Hi, My Name's Furkan Tanrıöver","I Love Development","<So, I Love Coffe and Coding />"],
+    words: [
+      `Hi, The Name's ${pageInfo?.name}`,
+    "I Love Development",
+    "<So, I Love Coffe and Coding />"
+  ],
     loop: true,
     delaySpeed: 2000,
   });
@@ -17,11 +25,11 @@ function Hero({}: Props) {
       <div className="z-20">
         <img
           className="rounded-full h-32 w-32 mx-auto object-cover "
-          src="https://media-exp1.licdn.com/dms/image/C5603AQEKqLYh8XhVMg/profile-displayphoto-shrink_800_800/0/1623004462527?e=1675296000&v=beta&t=Pu_zmE7DqzclJoaoD1xzs0sXlAIwWz8lN_gpL2EBbVQ"
+          src={urlFor(pageInfo?.heroImage).url()}
           alt="Furkan Tanrıöver"
         />
         <div>
-          <h2 className="text-sm uppercase text-gray-500 tracking-[15px] mt-8">Software Engineer</h2>
+          <h2 className="text-sm uppercase text-gray-500 tracking-[15px] mt-8">{pageInfo?.role}</h2>
           <h1 className="mt-2 text-5xl lg:text-6xl font-semibold scroll-px-10">
             <span>{text}</span>
             <Cursor cursorColor="#F7AB0A" />
